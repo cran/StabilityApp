@@ -1,0 +1,33 @@
+{
+  "input": {
+    "file": null,
+    "run_add_anova": 0,
+    "run_ammi": 0,
+    "run_ammi_biplot": 0,
+    "run_ammi_biplot2": 0,
+    "run_data": 0,
+    "run_er_anova": 0,
+    "run_ge_effects": 0,
+    "run_ge_means": 0,
+    "run_gge_biplot": 0,
+    "run_gge_biplot2": 0,
+    "run_indiv_anova": 0,
+    "run_stab_asv": 0,
+    "run_stab_dist": 0,
+    "run_stab_fox": 0,
+    "run_stab_kang": 0,
+    "run_stab_masv": 0,
+    "run_stab_measures": 0,
+    "run_stab_par": 0,
+    "run_stab_reg": 0,
+    "run_stab_reg2": 0,
+    "sidebarCollapsed": false,
+    "sidebarItemExpanded": null
+  },
+  "output": {
+
+  },
+  "export": {
+
+  }
+}
