@@ -1,0 +1,112 @@
+---
+title: "Getting started with StabilityApp"
+author: "Muhammad Yaseen"
+date: last-modified
+format:
+  html:
+    self-contained: true
+    number-sections: true
+    toc: true
+    toc-depth: 3
+    highlight-style: pygments
+    code-tools: true
+    html-math-method: mathjax
+vignette: >
+  %\VignetteIndexEntry{Getting started with StabilityApp}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+{{< include _StabilityApp-macros.txt >}}
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = FALSE, comment = "", fig.width = 7, fig.height = 4.6,
+                      dev = if (knitr::is_latex_output()) "cairo_pdf" else
+                        if (requireNamespace("svglite", quietly = TRUE)) "svglite" else "png")
+if (requireNamespace("StabilityApp", quietly = TRUE)) library(StabilityApp) else
+  pkgload::load_all(export_all = FALSE, helpers = FALSE, quiet = TRUE)
+```
+
+# Abstract
+
+StabilityApp runs the stability analyses of the package stability in a web browser, without writing code. This
+vignette walks through one session: the data, an analysis, its interpretation, tables, plots and the R code that
+repeats it.
+
+# Start
+
+```{r start, eval = FALSE}
+StabilityApp(
+    launch.browser = TRUE
+  )
+```
+
+![The home page.](sa-home.png){width=100%}
+
+# Data
+
+The example trial `ge_data` of stability (60 wheat genotypes, 11 environments, 2 replicates) is loaded at the start.
+A CSV file with one row per plot can be uploaded instead; the columns of response, genotype, environment and
+replicate are chosen on the Data page, with the name of the trait and whether higher values are better (yield) or
+worse (days to maturity, disease score).
+
+![The Data page.](sa-data.png){width=100%}
+
+# An analysis
+
+The menus group the twenty analyses: tables of means and effects; analyses of variance; regression and
+variance-based stability; safety-first and nonparametric stability; AMMI and the GGE biplot. Each page has its options on the left and five tabs:
+
+* **Interpretation**: what the result shows, written for that method and computed from its numbers by
+  `stability::stab_interpret()`: a headline, findings, recommendations and cautions;
+* **Output**: the result as R prints it, aligned in a fixed-width font as in the R console;
+* **Tables**: the tables of the result, with Copy, CSV and Excel buttons, all rows on request, p-values to three
+  significant digits and the other numbers rounded to three decimals;
+* **Plot**: the plots of the result, as PNG or PDF;
+* **R code**: the call that repeats the analysis, and the interpretation as Markdown.
+
+The interpretation, the output and the R code each have a **Copy** button that puts their plain text on the
+clipboard, ready to paste into a report, an e-mail or an R script. Text is set in IBM Plex Sans and output in IBM
+Plex Mono; without access to Google Fonts the app uses the system fonts.
+
+![Finlay and Wilkinson's regression: the interpretation.](sa-interpretation.png){width=100%}
+
+![The output as R prints it, with its Copy button.](sa-output.png){width=100%}
+
+![The tables, with Copy, CSV and Excel buttons.](sa-tables.png){width=100%}
+
+![The plot of mean against slope.](sa-plot.png){width=100%}
+
+The interpretation differs by method: for the GGE biplot it names the winning genotype of each environment, the
+groups of environments, the most stable of the best genotypes and the best test environments.
+
+![The GGE biplot: which won where.](sa-gge.png){width=100%}
+
+# The same in R
+
+Every page shows its R code; the analysis and its interpretation in a script:
+
+```{r code}
+fit <-
+  stability::stab_reg(
+      .data = stability::ge_data
+    , .y    = Yield
+    , .rep  = Rep
+    , .gen  = Gen
+    , .env  = Env
+    )
+stability::stab_interpret(
+    x             = fit
+  , higher_better = TRUE
+  , top           = 5
+  )
+```
+
+# Summary
+
+Load the data, run the combined analysis of variance first, then the stability analyses; read the interpretation
+of each, check it against the tables and plots, and keep the R code for the report.

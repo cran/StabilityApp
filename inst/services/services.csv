@@ -1,0 +1,4 @@
+id,label,format,url,model,key_env,header
+anthropic,Anthropic,messages,https://api.anthropic.com/v1/messages,claude-haiku-4-5,ANTHROPIC_API_KEY,anthropic-version=2023-06-01
+openai,OpenAI,chat,https://api.openai.com/v1/chat/completions,gpt-4o-mini,OPENAI_API_KEY,
+gemini,Google Gemini,generate,https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent,gemini-2.5-flash,GEMINI_API_KEY,

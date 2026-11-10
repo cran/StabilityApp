@@ -1,0 +1,23 @@
+::: {.content-visible when-format="html"}
+::: {.hidden}
+$$
+\newcommand{\vy}{\mathbf{y}}
+\newcommand{\vx}{\mathbf{x}}
+\newcommand{\vb}{\mathbf{b}}
+\newcommand{\ve}{\mathbf{e}}
+\newcommand{\vone}{\mathbf{1}}
+\newcommand{\vbeta}{\boldsymbol{\beta}}
+\newcommand{\vmu}{\boldsymbol{\mu}}
+\newcommand{\mX}{\mathbf{X}}
+\newcommand{\mZ}{\mathbf{Z}}
+\newcommand{\mV}{\mathbf{V}}
+\newcommand{\mI}{\mathbf{I}}
+\newcommand{\mJ}{\mathbf{J}}
+\newcommand{\mSigma}{\boldsymbol{\Sigma}}
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\tr}{\operatorname{tr}}
+$$
+:::
+:::

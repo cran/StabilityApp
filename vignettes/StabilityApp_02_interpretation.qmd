@@ -1,0 +1,120 @@
+---
+title: "Interpretations and the optional text service"
+author: "Muhammad Yaseen"
+date: last-modified
+format:
+  html:
+    self-contained: true
+    number-sections: true
+    toc: true
+    toc-depth: 3
+    highlight-style: pygments
+    code-tools: true
+    html-math-method: mathjax
+vignette: >
+  %\VignetteIndexEntry{Interpretations and the optional text service}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+{{< include _StabilityApp-macros.txt >}}
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = FALSE, comment = "", fig.width = 7, fig.height = 4.6,
+                      dev = if (knitr::is_latex_output()) "cairo_pdf" else
+                        if (requireNamespace("svglite", quietly = TRUE)) "svglite" else "png")
+if (requireNamespace("StabilityApp", quietly = TRUE)) library(StabilityApp) else
+  pkgload::load_all(export_all = FALSE, helpers = FALSE, quiet = TRUE)
+```
+
+# Abstract
+
+Every result in StabilityApp comes with an interpretation computed by the package stability. A longer written
+interpretation can also be requested from an external text service. This vignette explains both, what is sent to
+the service, and how the request is made specific to each method.
+
+# The computed interpretation
+
+`stability::stab_interpret()` reads a result with rules for its method: the tests of an analysis of variance, the
+slopes and deviations of a regression, the axes and scores of AMMI, the sectors and axes of the GGE biplot. Every
+sentence comes from the numbers of the result; nothing is sent anywhere.
+
+```{r computed}
+fit <-
+  stability::ammi(
+      .data = stability::ge_data
+    , .y    = Yield
+    , .rep  = Rep
+    , .gen  = Gen
+    , .env  = Env
+    )
+it <-
+  stability::stab_interpret(
+      x             = fit
+    , higher_better = TRUE
+    , top           = 5
+    )
+it
+```
+
+# The request to a text service
+
+`sa_prompt()` builds the request. It contains how the method is read, what to concentrate on for that method, the
+computed findings (which the text must keep to), their facts and the first rows of the main table:
+
+```{r prompt}
+p <-
+  sa_prompt(
+      x             = fit
+    , higher_better = TRUE
+    , trait         = "grain yield (kg/ha)"
+    , rows          = 8
+    )
+cat(p$system)
+cat(substr(x = p$user, start = 1, stop = 1600))
+```
+
+Because every analysis has its own reading guide, focus and findings, the request for a GGE biplot asks about
+winners and mega-environments, the request for a regression about slopes and deviations, and so on.
+
+# Services and keys
+
+The services are listed in the file `services.csv` of the package (`system.file("services", "services.csv",
+package = "StabilityApp")`), one line per service with these columns; the list itself is shown on the Settings page
+and by `sa_services()`:
+
+```{r services}
+names(sa_services())
+nrow(sa_services())
+```
+
+On the Settings page choose the service and the model and enter your key, or set the environment variable of the
+service (for instance in `.Renviron`) so that the key need not be typed. The key stays in the session. `sa_ask()`
+sends a request from R:
+
+```{r ask, eval = FALSE}
+txt <-
+  sa_ask(
+      service    = sa_services()$id[1]
+    , prompt     = p
+    , model      = sa_services()$model[1]
+    , key        = ""
+    , max_tokens = 1500
+    , timeout    = 90
+    )
+cat(txt)
+```
+
+# What is sent
+
+Only the text of `sa_prompt()`: the name of the analysis, the trait, the size of the trial, the computed
+interpretation with its facts and the first rows of the main table. No data file is sent.
+
+# Summary
+
+Use the computed interpretation as the reference: it is reproducible and specific to the method. The written text
+of a service is a draft for a report; check it against the computed findings, the tables and the plots.

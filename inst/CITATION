@@ -1,8 +1,24 @@
+# The version and year follow the installed package (from DESCRIPTION). The package was first released in 2024.
+first <- "2024"
+ver  <- if (!is.null(meta$Version)) meta$Version else utils::packageVersion("StabilityApp")
+date <- if (!is.null(meta$Date)) meta$Date else if (!is.null(meta$`Date/Publication`)) meta$`Date/Publication` else
+  as.character(Sys.Date())
+year <- substr(date, 1L, 4L)
+note <- if (first == year) sprintf("R package version %s", ver) else
+  sprintf("R package version %s (first released %s)", ver, first)
 bibentry(
-  "manual",
-  header = "Please, support this project by citing it in your publications!",
-  title = "StabilityApp: Stability Analysis App for Genotype by Environment Interaction (GEI) in Multi-Environment Trials",
-	author = "Muhammad Yaseen, Kent M. Eskridge",
-  year = 2024,
-  journal = "The Comprehensive R Archive Network (CRAN)",
-)
+    bibtype     = "Manual"
+  , key         = "StabilityApp"
+  , header      = "To cite StabilityApp in publications use:"
+  , title       = "{StabilityApp}: Interactive Stability Analysis of Multi-Environment Trials"
+  , author      = c(
+        person("Muhammad", "Yaseen", email = "myaseen208@gmail.com", comment = c(ORCID = "0000-0002-5923-1714"))
+      , person("Kent", "Eskridge")
+      )
+  , year        = year
+  , note        = note
+  , url         = "https://CRAN.R-project.org/package=StabilityApp"
+  , textVersion = sprintf(paste("Yaseen, M. and Eskridge, K. (%s). StabilityApp: Interactive Stability Analysis of",
+                                "Multi-Environment Trials. %s. https://CRAN.R-project.org/package=StabilityApp"),
+                          year, note)
+  )

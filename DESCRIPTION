@@ -1,27 +1,54 @@
 Package: StabilityApp
 Type: Package
-Title: Stability Analysis App for GEI in Multi-Environment Trials
-Version: 0.1.0
-Authors@R: c(
-              person(c("Muhammad"), "Yaseen", email = "myaseen208@gmail.com",        role = c("aut", "cre", "cph"), comment = c(ORCID = "0000-0002-5923-1714"))
-            , person(c("Kent",  "M."), "Eskridge",  email = "keskridge1@unl.edu ",   role = c("aut", "ctb"))
-            )
-Maintainer: Muhammad Yaseen <myaseen208@gmail.com>
-Description: Provides tools for Genotype by Environment Interaction (GEI) analysis, using statistical models and visualizations to assess genotype performance across environments. It helps researchers explore interaction effects, stability, and adaptability in multi-environment trials, identifying the best-performing genotypes in different conditions. Which Win Where!
-Depends: R (>= 4.1)
-Imports: dplyr, DT, gridExtra, patchwork, stability, shiny, shinyBS,
-        shinydashboardPlus
-Suggests: shinytest2, testthat (>= 3.0.0)
+Title: Interactive Stability Analysis of Multi-Environment Trials
+Version: 1.0.0
+Date: 2026-11-03
+Authors@R: 
+    c(
+        person(
+            "Muhammad", "Yaseen"
+          , email   = "myaseen208@gmail.com"
+          , role    = c("aut", "cre", "cph")
+          , comment = c(ORCID = "0000-0002-5923-1714")
+          )
+      , person(
+            "Kent", "Eskridge"
+          , email   = "keskridge1@unl.edu"
+          , role    = c("aut", "ctb")
+          )
+      )
+Description: A 'shiny' application for the stability analysis of
+    multi-environment trials of plant breeding with the package 'stability':
+    analyses of variance, Eberhart and Russell's and Finlay and Wilkinson's
+    regression, Wricke's, Shukla's, Kang's and Fox's statistics, Eskridge's
+    safety-first indices, Annicchiarico's, Lin and Binns' and Huehn's
+    statistics, AMMI analysis
+    and stability values, and the GGE biplot. Every analysis comes with its
+    tables, plots, the R code that repeats it and an interpretation specific to
+    the method, computed from the results; an optional longer written
+    interpretation can be requested from an external text service with the
+    user's own key.
 License: GPL-3
-RoxygenNote: 7.3.2
+URL: https://myaseen208.com/StabilityApp/,
+        https://github.com/myaseen208/StabilityApp
+BugReports: https://github.com/myaseen208/StabilityApp/issues
 Encoding: UTF-8
-Note: School of Mathematical & Statistical Sciences, Clemson
-        University, Clemson, South Carolina, USA
+Language: en-US
+Depends: R (>= 4.2)
+Imports: bslib, commonmark, data.table, DT, ggplot2, htmltools, httr2,
+        shiny, stability (>= 1.0.0), utils
+Suggests: knitr, pkgload, quarto, R.rsp, svglite, testthat (>= 3.0.0),
+        withr
+VignetteBuilder: quarto, R.rsp
+Config/Needs/website: pkgdown (>= 2.1.0)
 Config/testthat/edition: 3
+Config/skill/prefix: sa
+RoxygenNote: 7.3.1
 NeedsCompilation: no
-Packaged: 2024-10-29 11:04:29 UTC; myaseen208
-Author: Muhammad Yaseen [aut, cre, cph]
-    (<https://orcid.org/0000-0002-5923-1714>),
-  Kent M. Eskridge [aut, ctb]
+Packaged: 2026-11-10 04:30:19 UTC; myaseen208
+Author: Muhammad Yaseen [aut, cre, cph] (ORCID:
+    <https://orcid.org/0000-0002-5923-1714>),
+  Kent Eskridge [aut, ctb]
+Maintainer: Muhammad Yaseen <myaseen208@gmail.com>
 Repository: CRAN
-Date/Publication: 2024-11-01 14:30:19 UTC
+Date/Publication: 2026-11-10 09:20:09 UTC
